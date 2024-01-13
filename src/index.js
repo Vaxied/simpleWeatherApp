@@ -3,8 +3,8 @@ import { apiKey } from "../secrets.js"
 (function () {
   const geocodingBaseUrl = 'http://api.openweathermap.org/geo/1.0/direct?q='
   const dataBaseUrl= 'https://api.openweathermap.org/data/2.5/weather?'
-  let cityName
-  let country
+  let cityName = ''
+  let country = ''
 
   const weathersList = {
     'Thunderstorm': 'thunderstorm.svg',
@@ -31,32 +31,31 @@ import { apiKey } from "../secrets.js"
   function buildQueryForGeoApi () {
     if (!isInputFormatValid(cityInput.value))
     throw new Error('Invalid format')
-    
-    cityName = capitalizeCityName(cityInput.value)
-    let inputs = cityName.split(', ')
-    if(inputs[1])
-    {
-      cityName = inputs.join(',')
-    }
-    else {
-      cityName = inputs[0]
-    }
-    let geoQuery = `${cityName}&limit=1&appid=${apiKey}&lang=en`
+  cityName = capitalizeCityName(cityInput.value)
+  let inputs = cityName.split(', ')
+  if(inputs[1])
+  {
+    cityName = inputs.join(',')
+  }
+  else {
     cityName = inputs[0]
-    return geoQuery
   }
+  let geoQuery = `${cityName}&limit=1&appid=${apiKey}&lang=en`
+  cityName = inputs[0]
+  return geoQuery
+}
 
-  function isInputFormatValid (input) {
-    if (!cityInput.value)
-    throw new Error('Empty string')
+function isInputFormatValid (input) {
+  if (!cityInput.value)
+  throw new Error('Empty string')
 
-    if ((/^[A-Za-z\s]+,\s[A-Za-z]+$/.test(input)) || (/^[A-Za-z\s]+$/.test(input)))
-      return true
-  }
+if ((/^[A-Za-z\s]+,\s[A-Za-z]+$/.test(input)) || (/^[A-Za-z\s]+$/.test(input)))
+return true
+}
 
-  function capitalizeCityName (name) {
-    let cityWords = name.split(' ')
-    // let cityWords = cityInput.value.split(' ')
+function capitalizeCityName (name) {
+  let cityWords = name.toLowerCase().split(' ')
+  // let cityWords = cityInput.value.split(' ')
 
     for (let i = 0; i < cityWords.length; i++) {
       cityWords[i] = cityWords[i][0].toUpperCase() + cityWords[i].substr(1)
