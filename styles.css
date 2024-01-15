@@ -1,0 +1,211 @@
+:root {
+  --body-background-color: #50E3C2;
+  --input-background: rgba(200, 255, 255, 1);
+  --input-background-focused: rgba(170, 255, 255, 0.989);
+  --input-border-color: hsl(183, 94%, 47%); 
+  --input-border-color-focused: rgba(6, 189, 245, 0.964);
+  --search-btn-bg-color: rgb(28, 207, 235);
+  --primary-border-width: .0625rem;
+  --secondary-border-width: .125rem
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  font-family: 'Inter', sans-serif;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  min-height: 100vh;
+}
+
+body {
+  background-color: var(--body-background-color); 
+  background-image: 
+      radial-gradient(at 47% 33%, hsl(162.00, 77%, 40%) 0, transparent 59%), 
+      radial-gradient(at 82% 65%, hsl(198.00, 100%, 50%) 0, transparent 55%);
+}
+
+nav, #main-container {
+  display: flex;
+  align-items: center;
+}
+
+#main-container {
+  flex-direction: column;
+}
+
+nav {
+  margin-top: 2rem;
+  justify-content: center;
+  height: 2.5rem;
+  width: 100%;
+  margin-bottom: 3rem;
+}
+
+.location-input-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  flex: 1 1 0;
+  padding: 0 0.5rem;
+  width: 100%;
+}
+
+.location-input-container .location-input,
+.location-input-container .search-btn {
+  height: 100%;
+}
+
+.location-input {
+  flex-grow: 1;
+  min-width: 10rem;
+  max-width: 20rem;
+  margin-right: 1rem;
+  padding-inline-start: 1rem;
+  outline: .1875rem solid transparent;
+  color:#4b5663;
+}
+
+.location-input {
+  backdrop-filter: blur(1rem) saturate(180%);
+  -webkit-backdrop-filter: blur(1rem) saturate(180%);
+  background-color: var(--input-background);
+  border-radius: 0.5rem;
+  border-style: solid;
+  border-width: var(--primary-border-width);
+  border-color: var(--input-border-color);
+  transition: 180ms box-shadow ease-in-out;
+}
+
+input.location-input:focus {
+  border-color: hsl(183, 94%, 47%);
+  box-shadow: 0 0 0 .1875rem hsla(198, 91%, 57%, 0.7);
+  /* background-color: rgba(200, 255, 255, 0.85); */
+}
+
+.search-btn {
+  flex-grow: 1;
+  min-width: 4rem;
+  max-width: 6rem;
+  outline: none;
+  border-radius: 0.5rem;
+  background-color: var(--search-btn-bg-color);
+  border: var(--secondary-border-width) solid rgb(5, 161, 252);
+  font-weight: 700;
+  font-size: .875rem;
+  cursor: pointer;
+  color: rgb(217, 244, 240); 
+}
+
+.search-btn:hover {
+  background: hsl(201, 87%, 63%)
+}
+
+#mount {
+  display: flex;
+  align-items: center;
+  width: 70%;
+  margin: 0 auto;
+  height: auto;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.forecast {
+  width: 10rem;
+  height: 14rem;
+  padding: 0.5rem;
+  position: relative;
+  border-radius: 1.5rem;
+}
+
+.forecast {
+  position: relative;
+  backdrop-filter: blur(1rem) saturate(180%);
+  -webkit-backdrop-filter: blur(1rem) saturate(180%);
+  background-color: rgba(255, 255, 255, 0.75);
+  border-radius: .75rem;
+  border: 0.0625rem solid rgba(190, 200, 220, 0.5); 
+}
+
+.forecast span {
+  display: inline-block;
+}
+
+.forecast .location-name {
+  padding: 0.5rem 0.5rem 0rem 0.5rem;
+  font-size: 1rem;
+  width: 7.5rem;
+  font-weight: 300;
+  overflow-x: hidden;
+  display: inline-block;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.forecast .location-country {
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+  width: 24px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  height: 1.5rem;
+  text-align: center;
+}
+
+.forecast .weather-icon {
+  display: block;
+  width: 4rem;
+  margin: 0 auto;
+  fill: #d4d4d4;
+}
+
+.forecast .location-temperature {
+  font-size: 2rem;
+  padding-left: 0.5rem;
+  font-weight: 400;
+  display: inline-block;
+  min-width: 1.5rem;
+}
+
+.forecast .temp-degrees {
+  display: inline-block;
+  width: 1.5rem;
+  vertical-align: top;
+}
+
+.forecast .weather-description {
+  text-align: center;
+  font-size: 0.875rem;
+  /* padding-top: 1.5rem; */
+  margin-top: 1rem;
+  font-weight: 300;
+  color: #4b5663;
+  width: 100%;
+}
+
+@media screen and (max-width: 500px) {
+  #mount {
+    width: 80%;
+  }
+
+  .location-input {
+    max-width: 12rem;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  #mount {
+    flex-direction: column;
+  }
+}
+
+
