@@ -1,7 +1,7 @@
 import { apiKey } from "../secrets.js"
 
 (function () {
-  const geocodingBaseUrl = 'http://api.openweathermap.org/geo/1.0/direct?q='
+  const geocodingBaseUrl = 'https://api.openweathermap.org/geo/1.0/direct?q='
   const dataBaseUrl= 'https://api.openweathermap.org/data/2.5/weather?'
   let cityName = ''
   let country = ''
