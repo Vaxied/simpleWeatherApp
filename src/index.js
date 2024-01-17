@@ -17,7 +17,6 @@ import { apiKey } from "../secrets.js"
     'default': 'snow-flake.svg',
   }
 
-
   const searchBtn = document.querySelector('.search-btn')
   const cityInput = document.querySelector('.location-input')
 
@@ -30,6 +29,7 @@ import { apiKey } from "../secrets.js"
   }
 
   function buildQueryForGeoApi () {
+
     if (!isInputFormatValid(cityInput.value))
     throw new Error('Invalid format')
   cityName = capitalizeCityName(cityInput.value)
@@ -69,6 +69,7 @@ function capitalizeCityName (name) {
   }
 
   function buildUrlForGeoApi () {
+
     let query = buildQueryForGeoApi()
     let url = `${geocodingBaseUrl}${query}`
     return url
@@ -113,7 +114,7 @@ function capitalizeCityName (name) {
   async function getWeatherData () {
     
     try {
-      // Fetching weather Data for the specified city and/our country
+      // Fetching weather data for the specified city and/our country
       const url = await buildUrlForCurrentWeatherApi()
       const response = await fetchData(url)
       const data = await response.json()
@@ -132,7 +133,6 @@ function capitalizeCityName (name) {
   }
 
   function buildCardComponent () {
-
     // Creating Html elements
     const cardElement = document.createElement('div')
     const locationName = document.createElement('span')
@@ -186,15 +186,15 @@ function capitalizeCityName (name) {
     const app = document.querySelector('#mount')
     app.append(component)
   }
-
+  
   function handleKeyInput() {
     // Checks wether the user presses the Enter key or not
     if (event.key !== 'Enter')
-      return
-    getWeatherData()
-  }
+    return
+  getWeatherData()
+}
 
-  function sendRequest (event) {
+function sendRequest (event) {
     getWeatherData()
   }
 

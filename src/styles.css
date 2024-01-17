@@ -122,6 +122,12 @@ input.location-input:focus {
   gap: 1rem;
 }
 
+.card-wrapper {
+  display: flex;
+  justify-content: center;
+  flex: 1;
+}
+
 .forecast {
   width: 10rem;
   height: 14rem;
