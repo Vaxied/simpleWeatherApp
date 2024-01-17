@@ -17,11 +17,11 @@ import { apiKey } from "../secrets.js"
     'default': 'snow-flake.svg',
   }
 
-
   const searchBtn = document.querySelector('.search-btn')
   const cityInput = document.querySelector('.location-input')
 
   searchBtn.addEventListener('click', sendRequest)
+  cityInput.addEventListener('keyup', handleKeyInput)
   console.log('started')
 
   function fetchData (url) {
@@ -29,6 +29,7 @@ import { apiKey } from "../secrets.js"
   }
 
   function buildQueryForGeoApi () {
+
     if (!isInputFormatValid(cityInput.value))
     throw new Error('Invalid format')
   cityName = capitalizeCityName(cityInput.value)
@@ -46,16 +47,18 @@ import { apiKey } from "../secrets.js"
 }
 
 function isInputFormatValid (input) {
+  // Checks if input field is left empty  
   if (!cityInput.value)
   throw new Error('Empty string')
 
-if ((/^[A-Za-z\s]+,\s[A-Za-z]+$/.test(input)) || (/^[A-Za-z\s]+$/.test(input)))
-return true
+  // Checks if input follows the established format of [City, Country Code. Ej: Miami, US]
+  if ((/^[A-Za-z\s]+,\s[A-Za-z]+$/.test(input)) || (/^[A-Za-z\s]+$/.test(input)))
+    return true
 }
 
 function capitalizeCityName (name) {
+  // Capitalizes input
   let cityWords = name.toLowerCase().split(' ')
-  // let cityWords = cityInput.value.split(' ')
 
     for (let i = 0; i < cityWords.length; i++) {
       cityWords[i] = cityWords[i][0].toUpperCase() + cityWords[i].substr(1)
@@ -66,21 +69,22 @@ function capitalizeCityName (name) {
   }
 
   function buildUrlForGeoApi () {
+
     let query = buildQueryForGeoApi()
     let url = `${geocodingBaseUrl}${query}`
     return url
   }
 
   async function buildQueryForCurrentWeatherApi () {
-    
+
     let coordinates = await getLatitudeAndLongitude()
-    
     const apiQuery = `lat=${coordinates[0]}&lon=${coordinates[1]}&appid=${apiKey}&units=metric`
 
     return apiQuery
   }
 
   async function buildUrlForCurrentWeatherApi () {
+
     let query = await buildQueryForCurrentWeatherApi()
     let url = `${dataBaseUrl}${query}`
 
@@ -88,15 +92,18 @@ function capitalizeCityName (name) {
   }
 
   async function getLatitudeAndLongitude () {
+
     let url = buildUrlForGeoApi()
 
     try {
+      // Fetches the coordinates for the specified city and/or country
       const response = await fetchData(url)
       const data = await response.json()
       const latitude = data[0].lat
       const longitude = data[0].lon
       country = data[0].country
 
+      // Returns the coordinates
       return [latitude, longitude]
 
     } catch (error) {
@@ -107,6 +114,7 @@ function capitalizeCityName (name) {
   async function getWeatherData () {
     
     try {
+      // Fetching weather data for the specified city and/our country
       const url = await buildUrlForCurrentWeatherApi()
       const response = await fetchData(url)
       const data = await response.json()
@@ -115,6 +123,7 @@ function capitalizeCityName (name) {
       const mainWeather = data.weather[0].main
       const weatherDescription = data.weather[0].description
 
+      // Fills the card componentes with the relevant data
       const card = fillComponentData(city, mainWeather,temperature, weatherDescription)
       appendCardElement(card)
 
@@ -152,6 +161,8 @@ function capitalizeCityName (name) {
   }
 
   function fillComponentData (city, weather, temperature, description) {
+
+    // Builds the card component before appending
     const card = buildCardComponent()
     card.children[0].textContent = cityName
     card.children[1].textContent = country
@@ -171,11 +182,19 @@ function capitalizeCityName (name) {
   }
 
   function appendCardElement (component) {
+    // Appends the card componente to the DOM
     const app = document.querySelector('#mount')
     app.append(component)
   }
+  
+  function handleKeyInput() {
+    // Checks wether the user presses the Enter key or not
+    if (event.key !== 'Enter')
+    return
+  getWeatherData()
+}
 
-  function sendRequest () {
+function sendRequest (event) {
     getWeatherData()
   }
 

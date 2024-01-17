@@ -48,7 +48,7 @@ nav {
   margin-bottom: 3rem;
 }
 
-.location-input-container {
+.location-input-container, .input-form{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -71,6 +71,10 @@ nav {
   padding-inline-start: 1rem;
   outline: .1875rem solid transparent;
   color:#4b5663;
+}
+
+.form {
+  height: 100%;
 }
 
 .location-input {
@@ -116,6 +120,12 @@ input.location-input:focus {
   height: auto;
   flex-wrap: wrap;
   gap: 1rem;
+}
+
+.card-wrapper {
+  display: flex;
+  justify-content: center;
+  flex: 1;
 }
 
 .forecast {
